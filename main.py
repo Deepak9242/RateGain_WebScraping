@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 import csv
 
-EMPTY_ELEMENT = None
+EMPTY_ELEMENT = None                  # Replace with anything u want on empty places in csv file
 
 def get_image_src(blog: WebElement):
     '''Returns the image url of blog'''
@@ -87,21 +87,26 @@ def write_csv(arr,name):
 
 
     
+    
+def main():
+    driver = webdriver.Edge()               # Get the install driver instance, Edge is used if edge not present Chrome can be used
+    url = "https://rategain.com/blog"
+    driver.get(url)
+    blogs =[]
+    while True:
+        blogs.extend(find_blogs(driver))    # save the blogs to blogs array
+        next_link = click_next(driver)      # update next_link with next page link
+        print(next_link)
+        if next_link==None:
+            break
+        driver.get(next_link)
 
-driver = webdriver.Edge()               # Get the install driver instance 
-url = "https://rategain.com/blog"
-driver.get(url)
-blogs =[]
-while True:
-    blogs.extend(find_blogs(driver))    # save the blogs to blogs array
-    next_link = click_next(driver)      # update next_link with next page link
-    url = next_link
-    print(next_link)
-    if next_link==None:
-        break
-    driver.get(next_link)
+    write_csv(blogs,"blogs.csv")
 
-write_csv(blogs,"blogs.csv")
+
+
+if __name__=="__main__":
+    main()
 
 
 
