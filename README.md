@@ -6,3 +6,8 @@ Tech Stack and packages
 1. Python
 2. Selenium
 3. csv
+
+
+To Run use:
+
+python main.py
